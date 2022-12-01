@@ -1,0 +1,25 @@
+optimizer:
+  type: Adamax
+  params:
+    eps: 1.0e-08
+    lr: 0.001
+    betas: [0.9,0.999]
+    weight_decay: 0
+
+evaluation:
+  metrics:
+  - per_question_accuracy
+
+training:
+  experiment_name: STAR_baseline_lstm
+  max_epochs: 50
+  batch_size: 256
+  checkpoint_interval: 100
+  evaluation_interval: 100
+  log_interval: 10
+  early_stop:
+    criteria: actionqa/per_question_accuracy
+    minimize: false
+    
+#mmf_run config=projects/STAR/lstm/defaults.yaml datasets=actionqa model=lstm run_type=train_val
+#mmf_predict config=projects/STAR/lstm/defaults.yaml datasets=actionqa model=lstm run_type=test 

@@ -1,0 +1,23 @@
+optimizer:
+  type: Adamax
+  params:
+    eps: 1.0e-08
+    lr: 0.0001
+    weight_decay: 0.0002
+
+evaluation:
+  metrics:
+  - accuracy
+
+training:
+  experiment_name: cnn_mlp
+  max_epochs: 5
+  batch_size: 16
+  checkpoint_interval: 2000
+  evaluation_interval: 2000000000
+  log_interval: 10
+  early_stop:
+    criteria: actionqa/accuracy
+    minimize: false
+#CUDA_VISIBLE_DEVICES=3 mmf_run config=projects/actionqa/cnn_mlp/defaults.yaml datasets=actionqa model=cnn_mlp run_type=train env.save_dir=./save/cnn_mlp/
+#CUDA_VISIBLE_DEVICES=2 mmf_predict config=projects/actionqa/cnn_mlp/defaults.yaml checkpoint.resume_file=./save/cnn_mlp/models/model_10000.ckpt datasets=actionqa model=cnn_mlp run_type=test evaluation.predict=True evaluation.evaluate=False env.report_dir=../../../baselines/

@@ -1,0 +1,14 @@
+model_config:
+  lstm:
+    losses:
+    - type: cross_entropy
+    lstm:
+      input_size: 300
+      hidden_size: 256
+      bidirectional: true
+      batch_first: true
+    classifier:
+      type: mlp
+      params:
+        in_dim: 512
+        out_dim: 4

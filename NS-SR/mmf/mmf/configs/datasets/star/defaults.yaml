@@ -1,0 +1,9 @@
+dataset_config:
+  star:
+    data_dir: ${env.data_dir}
+    data_folder: STAR
+    qa_folder: Question_Answer_SituationGraph/
+    anno_folder: Annotations
+    frame_folder: Raw_Videos_Frames/Charades_v1_480/
+
+    qtype: Feasibility

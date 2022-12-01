@@ -1,0 +1,4 @@
+model_config:
+  bert:
+    losses:
+    - type: cross_entropy

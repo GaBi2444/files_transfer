@@ -1,0 +1,110 @@
+dataset_config:
+  star_nssr:
+    data_dir: ${env.data_dir}
+    data_folder: STAR
+    feature_folder: STAR_feature/
+    qa_folder: Question_Answer_SituationGraph/
+    anno_folder: Annotations/
+    frame_folder: Raw_Videos_Frames/Charades_v1_480/
+
+    train_graph: GT
+    val_graph: Swin_STTrans_10Epoch
+    graph_type: SGDet
+
+    con_act: true
+    act_det: 'MViTv2'
+
+    symbolic: true
+    semantic: false
+    visual: false
+
+    qtype: Feasibility
+    max_act: 2
+    max_rel: 4 # 2 6
+    max_frame: 16 #8 12
+
+    visual_feature_type: Video_Swin/
+    fea_h: 14
+    fea_w: 14
+    
+    processors:
+
+      graph_sampler:
+        type: graph_sampler
+        params:
+          max_frame: ${dataset_config.star_nssr.max_frame}
+          type: balance # [uniform, balance]
+          unseen_ratio: 0.25
+
+      masked_act_processor_train:
+        type: masked_graph_token
+        params:
+          max_seq_length: ${dataset_config.star_nssr.max_act}
+          mask_probability: 1
+          prob_mask: 0.2 # 0.8 Change
+          id_offset: 4 # pad 0, unk 1, sep 2, mask 3
+
+      masked_obj_processor_train:
+        type: masked_graph_token
+        params:
+          max_seq_length: ${dataset_config.star_nssr.max_rel}
+          mask_probability: 0.15
+          prob_mask: 0.8
+          id_offset: 115 # 4 + 111
+
+      masked_rel_processor_train:
+        type: masked_graph_token
+        params:
+          max_seq_length: ${dataset_config.star_nssr.max_rel}
+          mask_probability: 0.15
+          prob_mask: 0.8
+          id_offset: 152 # 4 + 111 + 37
+
+
+      masked_act_processor_val:
+        type: masked_graph_token
+        params:
+          max_seq_length: ${dataset_config.star_nssr.max_act}
+          mask_probability: 1
+          prob_mask: 1. # Change 
+          id_offset: 4 # pad 0, unk 1, sep 2, mask 3
+
+      masked_obj_processor_val:
+        type: masked_graph_token
+        params:
+          max_seq_length: ${dataset_config.star_nssr.max_rel}
+          mask_probability: 0.
+          prob_mask: 0.
+          id_offset: 115 # 4 + 111
+
+      masked_rel_processor_val:
+        type: masked_graph_token
+        params:
+          max_seq_length: ${dataset_config.star_nssr.max_rel}
+          mask_probability: 0.
+          prob_mask: 0.
+          id_offset: 152 # 4 + 111 + 37
+
+
+      visual_feature_cropper:
+        type: visual_feature_cropper
+        params:
+          output_size: [2, 2]
+          visual_feature_size: 2048
+          spatial_scale: 1.0
+          sampling_ratio: -1
+          aligned: true
+          max_obj: ${dataset_config.star_nssr.max_rel}
+
+      text_processor:
+        type: token_glove
+        params:
+          vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: ${dataset_config.star_nssr.data_folder}/Vocab/star_vocab.txt
+
+
+
+
+     

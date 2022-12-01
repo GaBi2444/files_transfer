@@ -1,0 +1,31 @@
+optimizer:
+  type: adam_w
+  params:
+    lr: 5e-5
+    eps: 1e-8
+
+dataset_config:
+  actionqa:
+    data_dir: ${env.data_dir}/ActionQA/
+    #data_dir: /userhome/cs/u3004417/bobby/data/
+    frame_path: ${env.data_dir}/ActionQA/frames/Charades_v1_480/
+    qa_path: 
+      train: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/v0.5/train/STAR_train.json
+      val: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/v0.5/test/STAR_test.json 
+      test: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/v0.5/test/STAR_test.json
+
+evaluation:
+  metrics:
+  - per_question_accuracy
+
+training:
+  experiment_name: bert_v0.5
+  max_epochs: 20
+  batch_size: 128
+  checkpoint_interval: 500
+  evaluation_interval: 1000000000000000
+  log_interval: 5
+  early_stop:
+    criteria: actionqa/per_question_accuracy
+    minimize: false
+#mmf_run config=projects/actionqa/BERT/defaults.yaml datasets=actionqa model=bert run_type=train_val 

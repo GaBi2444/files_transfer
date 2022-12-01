@@ -1,0 +1,19 @@
+model_config:
+  2dcnn_lstm:
+    losses:
+    - type: cross_entropy
+
+    lstm:
+      input_size: 300
+      hidden_size: 256
+      bidirectional: true
+      batch_first: true
+
+    classifier:
+      type: mlp
+      params:
+        video_len: ${dataset_config.actionqa.max_img}
+        in_dim: 2048
+        num_layers: 2
+        hidden_dim: 1024
+        out_dim: 4

@@ -1,0 +1,20 @@
+model_config:
+  cnn_lstm_for_vqa:
+    losses:
+    - type: cross_entropy
+    # text_embedding:
+    #   embedding_dim: 20
+    lstm:
+      input_size: 300
+      hidden_size: 512
+      bidirectional: true
+      batch_first: true
+
+    classifier:
+      type: mlp
+      params:
+        video_len: ${dataset_config.actionqa.max_img_seq_len}
+        in_dim: 2048
+        num_layers: 2
+        hidden_dim: 1024
+        out_dim: 2

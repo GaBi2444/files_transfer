@@ -1,0 +1,34 @@
+dataset_config:
+  clevrer:
+    data_dir: ${env.data_dir}/data/CLEVRER
+    question_type: descriptive
+    video_len: 16
+    build_attributes:
+      min_count: 1
+      split_regex: " "
+      keep:
+        - ";"
+        - ","
+      remove:
+        - "?"
+        - "."
+    processors:
+      text_processor:
+        type: vocab
+        params:
+          max_length: 12
+          vocab:
+            type: random
+            vocab_file: vocabs/clevrer_${dataset_config.clevrer.question_type}_question_vocab.txt
+        preprocessor:
+          type: simple_sentence
+          params: {}
+      answer_processor:
+        type: multi_hot_answer_from_vocab
+        params:
+          num_answers: 1
+          # Vocab file is relative to [data_dir]/[data_folder]
+          vocab_file: vocabs/clevrer_${dataset_config.clevrer.question_type}_answer_vocab.txt
+          preprocessor:
+            type: simple_word
+            params: {}

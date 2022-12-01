@@ -1,0 +1,35 @@
+model_config:
+  action_transition_model:
+    bert_model_name: None
+
+    max_act: ${dataset_config.star_nssr.max_act}
+    max_frame: ${dataset_config.star_nssr.max_frame}
+    max_rel: ${dataset_config.star_nssr.max_rel}
+
+    symbolic: ${dataset_config.star_nssr.symbolic}
+    semantic: ${dataset_config.star_nssr.semantic}
+    visual: ${dataset_config.star_nssr.visual}
+
+    vocab_size: 176
+    hidden_size: 256
+
+    obj_feature_size: 2048 # 512x4
+    frame_embedding_dim: 2048
+    frame_feature_channel: 512
+    
+    training_head_type: pretraining
+    num_hidden_layers: 6
+    num_attention_heads: 8
+
+    special_visual_initialize: true
+    embedding_strategy: plain
+    bypass_transformer: false
+    output_attentions: false
+    output_hidden_states: false
+    random_initialize: false
+    freeze_base: false
+    finetune_lr_multiplier: 1
+
+    # Default points to BERT pooler strategy which is to take
+    # representation of CLS token after passing it through a dense layer
+    pooler_strategy: default

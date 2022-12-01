@@ -1,0 +1,105 @@
+dataset_config:
+  srqa:
+    data_dir: ${env.data_dir}
+    qa_dir: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/
+    annotations:
+      train: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/v0.98/train/STAR_train.json
+      val: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/v0.98/val/STAR_val.json
+      test: ${env.data_dir}/ActionQA/SR_Dataset/question_answer/v0.98/test/STAR_test.json
+    
+    fps_path: ${env.data_dir}/ActionQA/annotations/fps
+    sg_action_dir: ${env.data_dir}/ActionQA/SR_Dataset/situation_graph/action_video_segments.json
+    sg_rel_dir: ${env.data_dir}/ActionQA/SR_Dataset/situation_graph/actiongeneome_graph.json 
+    frames_dir: ${env.data_dir}/ActionQA/frames/Charades_v1_480/
+    fps_path: ${env.data_dir}/ActionQA/annotations/fps
+    map_dir: ${env.data_dir}/ActionQA/annotations/
+    vocab_dir: ${env.data_dir}/ActionQA/SR_Dataset/vocabs/
+    pose_dir: ${env.data_dir}/ActionQA/pose/
+
+    max_action_len: 2
+    max_situation_len: 16
+    max_rel_len: 8
+    embeding_dim: 256
+    box_embedding_dim: 128
+    pose_embedding_dim: 128
+    learning_position: learn_all
+
+    p_mask_hyper_edge: 0.5
+    p_mask_rel_node: 0.15
+    p_mask_obj_node: 0.15
+    p_with_mask: 0.9
+    ratio_mask_in_scene: 0.9
+
+    # 
+    # p_predict_scene: 0.2
+        
+    downsteam_task: interaction
+    graphs_sample_type: uniform
+
+    img_height: 256
+    img_width: 256
+    obj_width: 224
+    obj_height: 224
+    pose_height: 64
+    pose_width: 64
+
+    build_attributes:
+      min_count: 1
+      split_regex: 
+        - " "
+        - "/"
+      keep:
+        - ";"
+        - ","
+      remove:
+        - "?"
+        - "."
+    processors:
+      text_processor:
+        type: glove_unpadding
+        params:
+          vocab:
+            type: intersected
+            embedding_name: glove.6B.300d
+            vocab_file: ${env.data_dir}/ActionQA/SR_Dataset/vocabs/SRQA_vocab.txt
+          preprocessor:
+            type: simple_sentence
+            params: {}
+
+      frame_processor:
+          type: torchvision_transforms
+          params:
+            transforms:
+            - type: Resize
+              params:
+                  size: [256, 256]
+            - type: CenterCrop
+              params:
+                size: [224, 224]
+            - ToTensor
+            - GrayScaleTo3Channels
+            - type: Normalize
+              params:
+                mean: [0.46777044, 0.44531429, 0.40661017]
+                std: [0.12221994, 0.12145835, 0.14380469]
+
+      patch_processor:
+          type: torchvision_transforms
+          params:
+            transforms:
+            - type: Resize
+              params:
+                  size: [224, 224]
+            - ToTensor
+            - GrayScaleTo3Channels
+            - type: Normalize
+              params:
+                mean: [0.46777044, 0.44531429, 0.40661017]
+                std: [0.12221994, 0.12145835, 0.14380469]
+
+      pose_processor:
+          type: torchvision_transforms
+          params:
+            transforms:
+            - ToTensor
+            - GrayScaleTo3Channels

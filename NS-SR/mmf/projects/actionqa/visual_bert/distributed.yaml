@@ -1,0 +1,43 @@
+optimizer:
+  type: adam_w
+  params:
+    lr: 5e-5
+    eps: 1e-8
+
+evaluation:
+  metrics:
+  - per_option_accuracy
+  - per_question_accuracy
+
+training:
+  experiment_name: sr_transformer
+  max_epochs: 50
+  batch_size: 8
+  checkpoint_interval: 50 
+  evaluation_interval: 1000000
+  log_interval: 5
+  num_workers: 2
+  early_stop:
+    criteria: srqa/per_option_accuracy
+    minimize: false
+
+###
+# Configuration for the distributed setup
+distributed:
+    ###
+    # Typically tcp://hostname:port that will be used to establish initial connection
+    # init_method: tcp://9.47.194.162:2234
+    # Rank of the current worker
+    # rank: 0
+    # Port number, not required if using init_method,
+    port: -1
+    # Backend for distributed setup
+    backend: nccl
+    # Total number of GPUs across all nodes (default: all visible GPUs)
+    # world_size: 4 #${device_count:}
+    # Set if you do not want spawn multiple processes even if
+    # multiple GPUs are visible
+    no_spawn: false
+
+
+#mmf_run config=projects/actionQA_baseline/lstm/defaults.yaml datasets=actionqa model=language_only_model run_type=train_val 

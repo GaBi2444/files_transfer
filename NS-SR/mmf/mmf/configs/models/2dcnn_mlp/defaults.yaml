@@ -1,0 +1,13 @@
+model_config:
+  2dcnn_mlp:
+    losses:
+    - type: cross_entropy
+
+    classifier:
+      type: mlp
+      params:
+        video_len: ${dataset_config.actionqa.max_img}
+        in_dim: 2048
+        num_layers: 2
+        hidden_dim: 1024
+        out_dim: 4

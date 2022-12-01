@@ -1,0 +1,23 @@
+optimizer:
+  type: Adamax
+  params:
+    eps: 1.0e-08
+    lr: 0.001
+    betas: [0.9,0.999]
+    weight_decay: 0
+
+evaluation:
+  metrics:
+  - per_question_accuracy
+  
+training:
+  experiment_name: STAR_baseline_3dcnn_lstm
+  batch_size: 2
+  max_epochs: 2
+  checkpoint_interval: 2000
+  evaluation_interval: 50
+  log_interval: 10
+  early_stop:
+    criteria: actionqa/per_question_accuracy
+    minimize: false
+#mmf_run config=projects/STAR/3dcnn_lstm/defaults.yaml datasets=actionqa model=2dcnn_lstm run_type=train_val

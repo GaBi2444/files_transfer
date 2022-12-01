@@ -1,0 +1,29 @@
+
+optimizer:
+  type: adam_w
+  params:
+    lr: 5e-5
+    eps: 1e-8
+
+evaluation:
+  metrics:
+  - Mask_Token_Accuracy
+
+training:
+  experiment_name: sr_transformer
+  #max_epochs: 50
+  batch_size: 2
+  checkpoint_interval: 200 
+  evaluation_interval: 1000
+  log_interval: 1
+  num_workers: 2
+  early_stop:
+    criteria: srqa/Mask_Token_Accuracy
+    minimize: false
+#CUDA_VISIBLE_DEVICES=0 mmf_run config=projects/actionQA_baseline/lstm/defaults.yaml datasets=actionqa model=language_only_model run_type=train
+#CUDA_VISIBLE_DEVICES=0 mmf_predict config=projects/srqa/srtransformer/defaults.yaml model=sr_transformer dataset=srqa run_type=test env.report_dir=./save/interaction/ checkpoint.resume_file=./save/v0.9_model.ckpt  training.batch_size=2 evaluation.predict=True evaluation.evaluate=False dataset_config.srqa.annotations.test=/userhome/cs/u3004417/bobby/data/ActionQA/SR_Dataset/question_answer/test/STAR_v0.9/Interaction_test.json 
+#CUDA_VISIBLE_DEVICES=0 mmf_predict config=projects/srqa/srtransformer/defaults.yaml model=sr_transformer dataset=srqa run_type=test env.report_dir=./save/sequence/ checkpoint.resume_file=./save/v0.9_model.ckpt  training.batch_size=2 evaluation.predict=True evaluation.evaluate=False dataset_config.srqa.annotations.test=/userhome/cs/u3004417/bobby/data/ActionQA/SR_Dataset/question_answer/test/STAR_v0.9/Sequence_test.json 
+#CUDA_VISIBLE_DEVICES=0 mmf_predict config=projects/srqa/srtransformer/defaults.yaml model=sr_transformer dataset=srqa run_type=test env.report_dir=./save/prediction/ checkpoint.resume_file=./save/v0.9_model.ckpt  training.batch_size=2 evaluation.predict=True evaluation.evaluate=False dataset_config.srqa.annotations.test=/userhome/cs/u3004417/bobby/data/ActionQA/SR_Dataset/question_answer/test/STAR_v0.9/Prediction_test.json 
+#CUDA_VISIBLE_DEVICES=0 mmf_predict config=projects/srqa/srtransformer/defaults.yaml model=sr_transformer dataset=srqa run_type=test env.report_dir=./save/feasibility/ checkpoint.resume_file=./save/v0.9_model.ckpt  training.batch_size=2 evaluation.predict=True evaluation.evaluate=False dataset_config.srqa.annotations.test=/userhome/cs/u3004417/bobby/data/ActionQA/SR_Dataset/question_answer/test/STAR_v0.9/Feasibility_test.json 
+
+#CUDA_VISIBLE_DEVICES=0 mmf_run config=projects/srqa/srtransformer/distributed.yaml datasets=srqa model=sr_transformer run_type=train training.batch_size=2 training.max_epochs=50 dataset_config.srqa.max_action_len=2 dataset_config.srqa.max_situation_len=16 dataset_config.srqa.max_rel_len=8 training.checkpoint_interval=50 env.save_dir='./sr_transformer_small' dataset_config.srqa.p_mask_action=0.7 dataset_config.srqa.p_mask_rel=0.05 dataset_config.srqa.p_mask_obj=0.05 dataset_config.srqa.p_predict_scene=0.2 

@@ -1,0 +1,157 @@
+c000 hold some clothes
+c001 put clothes somewhere
+c002 take some clothes from somewhere
+c003 throw clothes somewhere
+c004 tidy some clothes
+c005 wash some clothes
+c006 close a door
+c007 fix a door
+c008 open a door
+c009 put something on a table
+c010 sit on a table
+c011 sit at a table
+c012 tidy up a table
+c013 wash a table
+c014 work at a table
+c015 hold a phone/camera
+c016 play with a phone/camera
+c017 put a phone/camera somewhere
+c018 take a phone/camera from somewhere
+c019 talk on a phone/camera
+c020 hold a bag
+c021 open a bag
+c022 put a bag somewhere
+c023 take a bag from somewhere
+c024 throw a bag somewhere
+c025 close a book
+c026 hold a book
+c027 open a book
+c028 put a book somewhere
+c029 smile at a book
+c030 take a book from somewhere
+c031 throw a book somewhere
+c032 watch/read/look at a book
+c033 hold a towel/s
+c034 put a towel/s somewhere
+c035 take a towel/s from somewhere
+c036 throw a towel/s somewhere
+c037 tidy up a towel/s
+c038 wash something with a towel
+c039 close a box
+c040 hold a box
+c041 open a box
+c042 put a box somewhere
+c043 take a box from somewhere
+c044 take something from a box
+c045 throw a box somewhere
+c046 close a laptop
+c047 hold a laptop
+c048 open a laptop
+c049 put a laptop somewhere
+c050 take a laptop from somewhere
+c051 watch a laptop or something on a laptop
+c052 work/play on a laptop
+c053 hold a shoe/shoes
+c054 put shoes somewhere
+c055 put on shoe/shoes
+c056 take shoes from somewhere
+c057 take off some shoes
+c058 throw shoes somewhere
+c059 sit in a chair
+c060 stand on a chair
+c061 hold some food
+c062 put some food somewhere
+c063 take food from somewhere
+c064 throw food somewhere
+c065 eat a sandwich
+c066 make a sandwich
+c067 hold a sandwich
+c068 put a sandwich somewhere
+c069 take a sandwich from somewhere
+c070 hold a blanket
+c071 put a blanket somewhere
+c072 snuggle with a blanket
+c073 take a blanket from somewhere
+c074 throw a blanket somewhere
+c075 tidy up a blanket/s
+c076 hold a pillow
+c077 put a pillow somewhere
+c078 snuggle with a pillow
+c079 take a pillow from somewhere
+c080 throw a pillow somewhere
+c081 put something on a shelf
+c082 tidy a shelf or something on a shelf
+c083 reach for and grab a picture
+c084 hold a picture
+c085 laugh at a picture
+c086 put a picture somewhere
+c087 take a picture of something
+c088 watch/look at a picture
+c089 close a window
+c090 open a window
+c091 wash a window
+c092 watch/look outside of a window
+c093 hold a mirror
+c094 smile in a mirror
+c095 wash a mirror
+c096 watch something/someone/themselves in a mirror
+c097 walk through a doorway
+c098 hold a broom
+c099 put a broom somewhere
+c100 take a broom from somewhere
+c101 throw a broom somewhere
+c102 tidy up with a broom
+c103 fix a light
+c104 turn on a light
+c105 turn off a light
+c106 drink from a cup/glass/bottle
+c107 hold a cup/glass/bottle of something
+c108 pour something into a cup/glass/bottle
+c109 put a cup/glass/bottle somewhere
+c110 take a cup/glass/bottle from somewhere
+c111 wash a cup/glass/bottle
+c112 close a closet/cabinet
+c113 open a closet/cabinet
+c114 tidy up a closet/cabinet
+c115 hold a paper/notebook
+c116 put their paper/notebook somewhere
+c117 take paper/notebook from somewhere
+c118 hold a dish
+c119 put a dish/es somewhere
+c120 take a dish/es from somewhere
+c121 wash a dish/dishes
+c122 lie on a sofa/couch
+c123 sit on sofa/couch
+c124 lie on the floor
+c125 sit on the floor
+c126 throw something on the floor
+c127 tidy something on the floor
+c128 hold some medicine
+c129 take/consume some medicine
+c130 put groceries somewhere
+c131 laugh at television
+c132 watch television
+c133 awaken in bed
+c134 lie on a bed
+c135 sit in a bed
+c136 fix a vacuum
+c137 hold a vacuum
+c138 take a vacuum from somewhere
+c139 wash their hands
+c140 fix a doorknob
+c141 grasp onto a doorknob
+c142 close a refrigerator
+c143 open a refrigerator
+c144 fix their hair
+c145 work on paper/notebook
+c146 awaken somewhere
+c147 cook something
+c148 dress
+c149 laugh
+c150 run somewhere
+c151 go from standing to sitting
+c152 smile
+c153 sneeze
+c154 stand up from somewhere
+c155 undress
+c156 eat something

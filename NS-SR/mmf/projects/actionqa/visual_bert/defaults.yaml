@@ -1,0 +1,23 @@
+optimizer:
+  type: adam_w
+  params:
+    lr: 5e-5
+    eps: 1e-8
+
+evaluation:
+  metrics:
+  - per_option_accuracy
+  - per_question_accuracy
+
+training:
+  experiment_name: visual_bert
+  max_epochs: 50
+  batch_size: 32
+  checkpoint_interval: 50 
+  evaluation_interval: 10000000
+  log_interval: 100
+  num_workers: 0
+  early_stop:
+    criteria: actionqa/per_option_accuracy
+    minimize: false
+#mmf_run config=projects/actionqa/visual_bert/defaults.yaml datasets=actionqa model=visual_bert run_type=train training.batch_size=2 training.max_epochs=50 
