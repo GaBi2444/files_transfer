@@ -9,6 +9,7 @@ mode = 'val'
 label_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/" + "Charades_Cls/" + mode + ".csv"
 #label_path = mode + '.csv'
 gt_path = "/nobackup/users/bowu/data/STAR/Question_Answer_SituationGraph/GT/STAR_" + mode + ".json"
+STAR_test_gt_path = "/nobackup/users/bowu/data/STAR/Question_Answer_SituationGraph/GT/STAR_test.json"
 
 star_train_label_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/Charades_Cls/train.csv"
 star_test_label_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/Charades_Cls/test.csv"
@@ -19,7 +20,25 @@ max_frame_charade_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/ch
 max_frame_star_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/max_frame_ag.json"
 max_frame_charade = json.load(open(max_frame_charade_path)) #"xxxxxx"
 max_frame_star = json.load(open(max_frame_star_path)) #"xxxxx.mp4"
+STAR_test = json.load(open(STAR_test_gt_path))
 #star_all_label = dict(Counter(star_train_label) + Counter(star_test_label) + Counter(star_val_label))
+
+keyframe_mapping = True
+kf_mapping = {}
+if keyframe_mapping:
+    for q in STAR_test:
+        vid = q['video_id']
+        charades_max_frames = max_frame_charade[vid]
+        star_max_frames = max_frame_star[vid + '.mp4']   
+        fid_mapping = {}   
+        for star_fid in q['situations']:
+            charades_fid = int(star_fid * charades_max_frames / star_max_frames)
+            fid_mapping[star_fid] = charades_fid
+        kf_mapping[vid] = fid_mapping
+    with open('STAR_2_Charades_KF.json','w') as f:
+        f.write(json.dumps(kf_mapping))
+    
+            
 
 match = True
 if match == True:
