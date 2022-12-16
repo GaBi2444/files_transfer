@@ -32,16 +32,21 @@ if keyframe_mapping:
         charades_max_frames = max_frame_charade[vid]
         star_max_frames = max_frame_star[vid + '.mp4']   
         fid_mapping = {}   
+        star2charades = {}
+        charades2star = {}
         for star_fid in q['situations']:
             charades_fid = int(int(star_fid) * charades_max_frames / star_max_frames)
             charades_fid = str(charades_fid).zfill(6)
-            fid_mapping[star_fid] = charades_fid
+            star2charades[star_fid] = charades_fid
+            charades2star[charades_fid] = star_fid
+            fid_mapping['STAR_To_Charades'] = star2charades
+            fid_mapping['Charades_To_STAR'] = charades2star
             if vid not in STAR_test_charades_ids:
                 STAR_test_charades_ids[vid] = [charades_fid]
             else:
                 STAR_test_charades_ids[vid].append(charades_fid)
         kf_mapping[vid] = fid_mapping
-    with open('STAR_test_2_Charades_KF.json','w') as f:
+    with open('STAR_test_to_Charades_KF.json','w') as f:
         f.write(json.dumps(kf_mapping))
     with open('STAR_test_Charades_ids.json', 'w') as f1:
         f1.write(json.dumps(STAR_test_charades_ids))
