@@ -18,10 +18,36 @@ charades_val_label_path = "/nobackup/users/bowu/data/Charades_v1_480/val.csv"
 charades_train_label_path = "/nobackup/users/bowu/data/Charades_v1_480/train.csv"
 max_frame_charade_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/max_frame_charades.json"
 max_frame_star_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/max_frame_ag.json"
+
+det_act_path =  "/nobackup/users/bowu/data/STAR_feature/ActRecog/MViTv2/kf_act_pred_result.json"
+det_act = json.load(open(det_act_path))
+STAR_Charades_vid_mapping_path = "/nobackup/users/bowu/data/STAR/Charades_to_STAR_mapping.json"
+STAR_Charades_vid_mapping = json.load(open(STAR_Charades_vid_mapping_path))
+STAR_vidmeta_qid_mapping_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/STAR_vidmeta_qid_mapping.json"
+STAR_vidmeta_qid_mapping = json.load(open(STAR_vidmeta_qid_mapping_path))
+kf_mapping_path = "/nobackup/users/bowu/data/STAR/Situation_Video_Data/STAR_test_to_Charades_KF.json"
+kf_Charades2STAR = json.load(open(kf_mapping_path))
+
 max_frame_charade = json.load(open(max_frame_charade_path)) #"xxxxxx"
 max_frame_star = json.load(open(max_frame_star_path)) #"xxxxx.mp4"
 STAR_test = json.load(open(STAR_test_gt_path))
 #star_all_label = dict(Counter(star_train_label) + Counter(star_test_label) + Counter(star_val_label))
+
+det_act_convert = True
+pred_result = {}
+if det_act_convert:
+    for vid in det_act:
+        vid_raw, _, _ = vid.split('_')
+        STAR_vid = STAR_Charades_vid_mapping['vid_mapping'][vid]
+        qid = self.STAR_vidmeta_qid_mapping[STAR_vid]
+        fid_info = {}
+        for fid in det_act[vid]:
+            STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
+            fid_info[STAR_fid] = det_act[vid][fid]
+        pred_result[qid] = fid_info
+    with open('/nobackup/users/bowu/data/STAR_feature/ActRecog/MViTv2/STAR_test_temporal_act.json', 'w') as f:
+        f.write(json.dumps(STAR_test_charades_ids))
+
 
 keyframe_mapping = True
 kf_mapping = {}
