@@ -39,14 +39,14 @@ if det_act_convert:
     for vid in det_act:
         vid_raw, _, _ = vid.split('_')
         STAR_vid = STAR_Charades_vid_mapping['vid_mapping'][vid]
-        qid = self.STAR_vidmeta_qid_mapping[STAR_vid]
+        qid = STAR_vidmeta_qid_mapping[STAR_vid]
         fid_info = {}
         for fid in det_act[vid]:
             STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
             fid_info[STAR_fid] = det_act[vid][fid]
         pred_result[qid] = fid_info
     with open('/nobackup/users/bowu/data/STAR_feature/ActRecog/MViTv2/STAR_test_temporal_act.json', 'w') as f:
-        f.write(json.dumps(STAR_test_charades_ids))
+        f.write(json.dumps(pred_result))
 
 
 keyframe_mapping = True
@@ -65,13 +65,26 @@ if keyframe_mapping:
             charades_fid = str(charades_fid).zfill(6)
             star2charades[star_fid] = charades_fid
             charades2star[charades_fid] = star_fid
-            fid_mapping['STAR_To_Charades'] = star2charades
-            fid_mapping['Charades_To_STAR'] = charades2star
             if vid not in STAR_test_charades_ids:
                 STAR_test_charades_ids[vid] = [charades_fid]
             else:
                 STAR_test_charades_ids[vid].append(charades_fid)
-        kf_mapping[vid] = fid_mapping
+        fid_mapping['STAR_To_Charades'] = star2charades
+        fid_mapping['Charades_To_STAR'] = charades2star
+        if vid not in kf_mapping:
+            kf_mapping[vid] = fid_mapping
+        else:
+            for fid in fid_mapping['Charades_To_STAR']:
+                if fid in kf_mapping[vid]['Charades_To_STAR']:
+                    continue
+                else:
+                    kf_mapping[vid]['Charades_To_STAR'][fid] = fid_mapping['Charades_To_STAR'][fid]
+            for fid in fid_mapping['STAR_To_Charades']:
+                if fid in kf_mapping[vid]['STAR_To_Charades']:
+                    continue
+                else:
+                    kf_mapping[vid]['STAR_To_Charades'][fid] = fid_mapping['STAR_To_Charades'][fid]
+
     with open('STAR_test_to_Charades_KF.json','w') as f:
         f.write(json.dumps(kf_mapping))
     with open('STAR_test_Charades_ids.json', 'w') as f1:
