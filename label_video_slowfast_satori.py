@@ -38,6 +38,10 @@ pred_result = {}
 if det_act_convert:
     for vid in det_act:
         vid_raw, _, _ = vid.split('_')
+        #for vid in STAR_Charades_vid_mapping['vid_mapping']:
+        #    if vid[0:5] == vid_raw:
+        #        print(vid)
+        print(vid)
         STAR_vid = STAR_Charades_vid_mapping['vid_mapping'][vid]
         qid = STAR_vidmeta_qid_mapping[STAR_vid]
         fid_info = {}
@@ -49,7 +53,7 @@ if det_act_convert:
         f.write(json.dumps(pred_result))
 
 
-keyframe_mapping = True
+keyframe_mapping = False
 kf_mapping = {}
 STAR_test_charades_ids = {}
 if keyframe_mapping:
@@ -182,7 +186,7 @@ if match == True:
                 'path':cha_path,
                 'labels':cha_labels
             })
-        df.to_csv("/nobackup/users/bowu/data/Charades/STAR_split/" + dtype[j] + ".csv", sep='\t', index = False)
+        #df.to_csv("/nobackup/users/bowu/data/Charades/STAR_split/" + dtype[j] + ".csv", sep='\t', index = False)
     Charades_to_STAR_mapping = {}
     Charades_to_STAR_mapping['vid_mapping'] = charades_to_star_vid_mapping
     Charades_to_STAR_mapping['max_frame_mapping'] = max_frame_mapping
