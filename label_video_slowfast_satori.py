@@ -41,14 +41,16 @@ if det_act_convert:
         #for vid in STAR_Charades_vid_mapping['vid_mapping']:
         #    if vid[0:5] == vid_raw:
         #        print(vid)
-        print(vid)
-        STAR_vid = STAR_Charades_vid_mapping['vid_mapping'][vid]
+        #if vid not in STAR_Charades_vid_mapping['vid_mapping']: continue 
+        STAR_vid = STAR_Charades_vid_mapping['vid_mapping']['Charades_to_STAR'][vid]
         qid = STAR_vidmeta_qid_mapping[STAR_vid]
         fid_info = {}
+        #embed()
         for fid in det_act[vid]:
             STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
             fid_info[STAR_fid] = det_act[vid][fid]
         pred_result[qid] = fid_info
+    embed()
     with open('/nobackup/users/bowu/data/STAR_feature/ActRecog/MViTv2/STAR_test_temporal_act.json', 'w') as f:
         f.write(json.dumps(pred_result))
 
@@ -109,6 +111,8 @@ if match == True:
 
             for line in f:
                 row = line.split() #['VZE8E_1_65', 'VZE8E', '1', 'VZE8E/VZE8E-000001.jpg', '""""']
+                #if row[0] == '02SKC_693_773':
+                #    print('in star_test')
                 vid = row[0][:5]
                 clip = row[0][6:]
                 if vid not in STAR_raw_video[i]:
@@ -148,6 +152,10 @@ if match == True:
     #embed()        
     dtype = ['train', 'test', 'val']
     charades_to_star_vid_mapping = {}
+    star2cha = {}
+    cha2star = {}
+    charades_to_star_vid_mapping['Charades_to_STAR'] = cha2star
+    charades_to_star_vid_mapping['STAR_to_Charades'] = star2cha
     max_frame_mapping = {}
     for j, raw_video in enumerate(STAR_raw_video):
         cha_original_vido_id = []
@@ -155,6 +163,7 @@ if match == True:
         cha_path, cha_labels = [], []
         for vid in tqdm(raw_video, desc='Processing'):
             clips = raw_video[vid]
+            if vid == '02SKC': print(clips)
             charades_max_frames = max_frame_charade[vid]
             star_max_frames = max_frame_star[vid + '.mp4']
             vid_max_frame_mapping ={}
@@ -165,20 +174,23 @@ if match == True:
             for clip in clips:
                 star_start, star_end = clip.split('_')
                 charades_start = int(int(star_start) * charades_max_frames / star_max_frames)
+                charades_start = max(charades_start, 1)
                 charades_end = int(int(star_end) * charades_max_frames / star_max_frames)
                 charades_end = min(charades_end, charades_max_frames)
                 clip_start_end_dense = list(range(charades_start, charades_end))
                 star_raw_id = vid + '_' + str(star_start) + '_' + str(star_end)
                 charades_raw_id = vid + '_' + str(charades_start) + '_' + str(charades_end)
-                
-                charades_to_star_vid_mapping[charades_raw_id] = star_raw_id
-                charades_to_star_vid_mapping[star_raw_id] = charades_raw_id
+                if charades_raw_id == '02SKC_693_773':
+                    print('BUG')
+                cha2star[charades_raw_id] = star_raw_id
+                star2cha[star_raw_id] = charades_raw_id
                 for i in clip_start_end_dense:
                     cha_original_vido_id.append(charades_raw_id)
                     cha_video_id.append(vid)
                     cha_frame_id.append(i)
                     cha_path.append(Charades_raw_video[vid][i-1][2])
                     cha_labels.append(Charades_raw_video[vid][i-1][3])
+                #if vid == '02SKC': embed()    
         df = pd.DataFrame({
                 'original_vido_id':cha_original_vido_id,
                 'video_id':cha_video_id,
@@ -186,13 +198,15 @@ if match == True:
                 'path':cha_path,
                 'labels':cha_labels
             })
-        #df.to_csv("/nobackup/users/bowu/data/Charades/STAR_split/" + dtype[j] + ".csv", sep='\t', index = False)
+        df.to_csv("/nobackup/users/bowu/data/STAR/Situation_Video_Data/STAR_split/" + dtype[j] + ".csv", sep='\t', index = False)
     Charades_to_STAR_mapping = {}
+    charades_to_star_vid_mapping['Charades_to_STAR'] = cha2star
+    charades_to_star_vid_mapping['STAR_to_Charades'] = star2cha
     Charades_to_STAR_mapping['vid_mapping'] = charades_to_star_vid_mapping
     Charades_to_STAR_mapping['max_frame_mapping'] = max_frame_mapping
     with open("/nobackup/users/bowu/data/STAR/Charades_to_STAR_mapping.json", "w") as f:
         f.write(json.dumps(Charades_to_STAR_mapping))
-
+    print('finish')
                 
 
     
