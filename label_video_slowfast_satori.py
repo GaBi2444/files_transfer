@@ -50,7 +50,9 @@ if det_act_convert:
             STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
             fid_info[STAR_fid] = det_act[vid][fid]
         pred_result[qid] = fid_info
-    embed()
+    compute_init_graph_act = True
+    if compute_init_graph_act:
+        
     with open('/nobackup/users/bowu/data/STAR_feature/ActRecog/MViTv2/STAR_test_temporal_act.json', 'w') as f:
         f.write(json.dumps(pred_result))
 
