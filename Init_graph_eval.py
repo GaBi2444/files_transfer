@@ -30,8 +30,8 @@ for j in range(len(mode)):
         hg.append(qid)
         situations = video['situations']
         if qid not in det_act: 
-            continue
             not_match += 1
+            continue
         for fid in situations:
             correct_num = 0
             
@@ -41,11 +41,13 @@ for j in range(len(mode)):
                 for label in acts_label:
                     det_acts.append('a' + str(label).zfill(3))
                 situations[fid]['actions'] = det_acts
+            else:
+                situations[fid]['actions'] = [ 'a000', 'a000']
         hg.append(situations)
-    hypergraphs.append(hg)
+        hypergraphs.append(hg)
     save_gt = True
     print(not_match)
     #embed()
     if save_gt:
         with open("../exp/InitGraph_w_act/" + mode[j] + "_GT_Sem/star_" + mode[j] + "_action_transition_model.json",'w') as f:
-            json.dump(Init_graph, f)
+            json.dump(hypergraphs, f)
