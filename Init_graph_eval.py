@@ -100,8 +100,8 @@ if acc == True:
                 gt_act_num = len(gt_act)
                 if gt_act_num == 0: zero_act = True
                 init_rel = situations[fid]['rel_labels'][:gt_rel_num]
-                init_obj = situations[fid]['rel_labels'][:gt_obj_num]
-                init_act = situations[fid]['rel_labels'][:gt_act_num]
+                init_obj = situations[fid]['bbox_labels'][:gt_obj_num]
+                init_act = situations[fid]['actions'][:gt_act_num]
                 if not zero_rel:
                     for rel in init_rel:
                         if rel in gt_rel:
@@ -120,10 +120,10 @@ if acc == True:
         rel_accuracy = sum(rel_acc) /len(rel_acc)
         obj_accuracy = sum(obj_acc) /len(obj_acc)
         act_accuracy = sum(act_acc) /len(act_acc)
-        print(" can't find qid num: " + str(not_match))
-        print(" Init Graph rel accuracy: " + str(rel_accuracy))
-        print(" Init Graph obj accuracy: " + str(obj_accuracy))
-        print(" Init Graph action accuracy: " + str(act_accuracy))
+        print(mode[j] + " can't find qid num: " + str(not_match))
+        print(mode[j] + " Init Graph rel accuracy: " + str(rel_accuracy))
+        print(mode[j] + " Init Graph obj accuracy: " + str(obj_accuracy))
+        print(mode[j] + " Init Graph action accuracy: " + str(act_accuracy))
                 
 
 

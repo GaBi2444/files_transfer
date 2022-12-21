@@ -113,10 +113,10 @@ if acc == True:
                         if act in gt_act:
                             correct_act_num += 1
                     act_acc.append(correct_act_num/gt_act_num)
-        rel_accuracy = sum(rel_acc) /len(rel_acc)
-        obj_accuracy = sum(obj_acc) /len(obj_acc)
-        act_accuracy = sum(act_acc) /len(act_acc)
-        print(" can't find qid num: " + str(not_match))
-        print(" Hyper Graph rel accuracy: " + str(rel_accuracy))
-        print(" Hyper Graph obj accuracy: " + str(obj_accuracy))
-        print(" Hyper Graph act accuracy: " + str(act_accuracy))
+        rel_accuracy = sum(rel_acc) / len(rel_acc)
+        obj_accuracy = sum(obj_acc) / len(obj_acc)
+        act_accuracy = sum(act_acc) / len(act_acc)
+        print(mode[j] + " can't find qid num: " + str(not_match))
+        print(mode[j] + " Hyper Graph rel accuracy: " + str(rel_accuracy))
+        print(mode[j] + " Hyper Graph obj accuracy: " + str(obj_accuracy))
+        print(mode[j] + " Hyper Graph act accuracy: " + str(act_accuracy))
