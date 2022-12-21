@@ -83,6 +83,10 @@ if acc == True:
                 not_match += 1
                 continue
             for fid in situations:
+                if fid not in gt_query[qid]: continue
+                zero_rel = False
+                zero_obj = False
+                zero_act = False
                 correct_rel_num = 0
                 correct_obj_num = 0
                 correct_act_num = 0
@@ -90,23 +94,29 @@ if acc == True:
                 gt_obj = gt_query[qid][fid]['obj']
                 gt_act = gt_query[qid][fid]['act']
                 gt_rel_num = len(gt_rel)
+                if gt_rel_num == 0: zero_rel = True
                 gt_obj_num = len(gt_obj)
+                if gt_obj_num == 0: zero_obj = True
                 gt_act_num = len(gt_act)
+                if gt_act_num == 0: zero_act = True
                 init_rel = situations[fid]['rel_labels'][:gt_rel_num]
                 init_obj = situations[fid]['rel_labels'][:gt_obj_num]
                 init_act = situations[fid]['rel_labels'][:gt_act_num]
-                for rel in init_rel:
-                    if rel in gt_rel:
-                        correct_rel_num += 1
-                rel_acc.append(correct_rel_num/gt_rel_num)
-                for obj in init_obj:
-                    if obj in gt_obj:
-                        correct_obj_num += 1
-                obj_acc.append(correct_obj_num/gt_obj_num)
-                for act in init_act:
-                    if act in gt_act:
-                        correct_act_num += 1
-                act_acc.append(correct_act_num/gt_act_num)
+                if not zero_rel:
+                    for rel in init_rel:
+                        if rel in gt_rel:
+                            correct_rel_num += 1
+                    rel_acc.append(correct_rel_num/gt_rel_num)
+                if not zero_obj:
+                    for obj in init_obj:
+                        if obj in gt_obj:
+                            correct_obj_num += 1
+                    obj_acc.append(correct_obj_num/gt_obj_num)
+                if not zero_act:
+                    for act in init_act:
+                        if act in gt_act:
+                            correct_act_num += 1
+                    act_acc.append(correct_act_num/gt_act_num)
         rel_accuracy = sum(rel_acc) /len(rel_acc)
         obj_accuracy = sum(obj_acc) /len(obj_acc)
         act_accuracy = sum(act_acc) /len(act_acc)
