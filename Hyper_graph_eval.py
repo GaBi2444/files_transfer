@@ -13,7 +13,6 @@ if convert:
         root_path = "../exp/checkpoints_10Epoch_temporal_act/"
         Hyper_graph = json.load(open(root_path + mode[j]+ "_GT_Sem/star_" + mode[j] + "_action_transition_model.json",'rb'))
         gt = json.load(open("/home/bowu/data/STAR/Question_Answer_SituationGraph/GT/" + mode[j] + "_test.json",'rb'))
-        embed()
         gt_query = {}
         for q_gt in gt:
             qid = q_gt['question_id']
@@ -96,8 +95,8 @@ if acc == True:
                 gt_act_num = len(gt_act)
                 if gt_act_num == 0: zero_act = True
                 init_rel = situations[fid]['rel_labels'][:gt_rel_num]
-                init_obj = situations[fid]['rel_labels'][:gt_obj_num]
-                init_act = situations[fid]['rel_labels'][:gt_act_num]
+                init_obj = situations[fid]['bbox_labels'][:gt_obj_num]
+                init_act = situations[fid]['actions'][:gt_act_num]
                 if not zero_rel:
                     for rel in init_rel:
                         if rel in gt_rel:
