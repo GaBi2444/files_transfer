@@ -47,6 +47,7 @@ if det_act_convert:
             STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
             fid_info[STAR_fid] = det_act[vid][fid]
         pred_result[qid] = fid_info
+    #embed()
     compute_init_graph_act = True
     if compute_init_graph_act:
         frame_level_acc = []
@@ -54,7 +55,9 @@ if det_act_convert:
             situations = video['situations']
             vid = video['video_id']
             qid = video['question_id']
-            if qid not in pred_result: continue
+            if qid not in pred_result: 
+                print(qid)
+                continue
             for fid in situations:
                 total_act_nums_frame = 0
                 correct_act_nums_frame = 0
@@ -67,9 +70,9 @@ if det_act_convert:
                 for act in det_acts:
                     if act in frame_acts_gt: 
                         correct_act_nums_frame += 1
-                frame_level_acc.append(correct_act_nums_frame / total_act_nums_frame)
-        frame_sum_acc = sum(frame_level_acc) / len(frame_level_acc)
-        print("frame-level acc: " + str(frame_sum_acc))
+                #frame_level_acc.append(correct_act_nums_frame / total_act_nums_frame)
+        #frame_sum_acc = sum(frame_level_acc) / len(frame_level_acc)
+        #print("frame-level acc: " + str(frame_sum_acc))
     #embed()
     with open('../../exp/test_graph/STAR_test_temporal_act.json', 'w') as f:
         f.write(json.dumps(pred_result))
