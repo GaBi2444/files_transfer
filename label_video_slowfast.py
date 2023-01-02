@@ -10,6 +10,8 @@ label_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/
 #label_path = mode + '.csv'
 gt_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Question_Answer_SituationGraph/STAR_" + mode + ".json"
 STAR_test_gt_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Question_Answer_SituationGraph/STAR_test.json"
+STAR_train_gt_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Question_Answer_SituationGraph/STAR_train.json"
+STAR_val_gt_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Question_Answer_SituationGraph/STAR_val.json"
 
 star_train_label_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/Charades_Cls/train.csv"
 star_test_label_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/Charades_Cls/test.csv"
@@ -30,7 +32,9 @@ kf_Charades2STAR = json.load(open(kf_mapping_path))
 #embed()
 max_frame_charade = json.load(open(max_frame_charade_path))  # "xxxxxx"
 max_frame_star = json.load(open(max_frame_star_path))  # "xxxxx.mp4"
+STAR_train = json.load(open(STAR_train_gt_path))
 STAR_test = json.load(open(STAR_test_gt_path))
+STAR_val = json.load(open(STAR_val_gt_path))
 # star_all_label = dict(Counter(star_train_label) + Counter(star_test_label) + Counter(star_val_label))
 
 det_act_convert = True
@@ -80,43 +84,46 @@ if det_act_convert:
 keyframe_mapping = False
 kf_mapping = {}
 STAR_test_charades_ids = {}
+STAR = [STAR_train, STAR_test, STAR_val]
+dataset_mode = ['train', 'test', 'val']
 if keyframe_mapping:
-    for q in STAR_test:
-        vid = q['video_id']
-        charades_max_frames = max_frame_charade[vid]
-        star_max_frames = max_frame_star[vid + '.mp4']
-        fid_mapping = {}
-        star2charades = {}
-        charades2star = {}
-        for star_fid in q['situations']:
-            charades_fid = int(int(star_fid) * charades_max_frames / star_max_frames)
-            charades_fid = str(charades_fid).zfill(6)
-            star2charades[star_fid] = charades_fid
-            charades2star[charades_fid] = star_fid
-            if vid not in STAR_test_charades_ids:
-                STAR_test_charades_ids[vid] = [charades_fid]
+    for ind, dataset in enumerate(STAR):
+        for q in dataset:
+            vid = q['video_id']
+            charades_max_frames = max_frame_charade[vid]
+            star_max_frames = max_frame_star[vid + '.mp4']
+            fid_mapping = {}
+            star2charades = {}
+            charades2star = {}
+            for star_fid in q['situations']:
+                charades_fid = int(int(star_fid) * charades_max_frames / star_max_frames)
+                charades_fid = str(charades_fid).zfill(6)
+                star2charades[star_fid] = charades_fid
+                charades2star[charades_fid] = star_fid
+                if vid not in STAR_test_charades_ids:
+                    STAR_test_charades_ids[vid] = [charades_fid]
+                else:
+                    STAR_test_charades_ids[vid].append(charades_fid)
+            fid_mapping['STAR_To_Charades'] = star2charades
+            fid_mapping['Charades_To_STAR'] = charades2star
+            if vid not in kf_mapping:
+                kf_mapping[vid] = fid_mapping
             else:
-                STAR_test_charades_ids[vid].append(charades_fid)
-        fid_mapping['STAR_To_Charades'] = star2charades
-        fid_mapping['Charades_To_STAR'] = charades2star
-        if vid not in kf_mapping:
-            kf_mapping[vid] = fid_mapping
-        else:
-            for fid in fid_mapping['Charades_To_STAR']:
-                if fid in kf_mapping[vid]['Charades_To_STAR']:
-                    continue
-                else:
-                    kf_mapping[vid]['Charades_To_STAR'][fid] = fid_mapping['Charades_To_STAR'][fid]
-            for fid in fid_mapping['STAR_To_Charades']:
-                if fid in kf_mapping[vid]['STAR_To_Charades']:
-                    continue
-                else:
-                    kf_mapping[vid]['STAR_To_Charades'][fid] = fid_mapping['STAR_To_Charades'][fid]
+                for fid in fid_mapping['Charades_To_STAR']:
+                    if fid in kf_mapping[vid]['Charades_To_STAR']:
+                        continue
+                    else:
+                        kf_mapping[vid]['Charades_To_STAR'][fid] = fid_mapping['Charades_To_STAR'][fid]
+                for fid in fid_mapping['STAR_To_Charades']:
+                    if fid in kf_mapping[vid]['STAR_To_Charades']:
+                        continue
+                    else:
+                        kf_mapping[vid]['STAR_To_Charades'][fid] = fid_mapping['STAR_To_Charades'][fid]
 
-    with open('/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/STAR_test_to_Charades_KF.json', 'w') as f:
-        f.write(json.dumps(kf_mapping))
-    with open('/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/STAR_test_Charades_ids.json', 'w') as f1:
-        f1.write(json.dumps(STAR_test_charades_ids))
+        with open('/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/STAR_' + dataset_mode[ind] + '_to_Charades_KF.json', 'w') as f:
+            f.write(json.dumps(kf_mapping))
+        with open('/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/STAR_' + dataset_mode[ind] + '_Charades_ids.json', 'w') as f1:
+            f1.write(json.dumps(STAR_test_charades_ids))
 
 match = False
 if match == True:
@@ -183,7 +190,7 @@ if match == True:
         for vid in tqdm(raw_video, desc='Processing'):
             
             clips = raw_video[vid]
-            if vid == '02SKC': print(clips)
+            #if vid == '02SKC': print(clips)
             charades_max_frames = max_frame_charade[vid]
             star_max_frames = max_frame_star[vid + '.mp4']
             vid_max_frame_mapping = {}
