@@ -21,12 +21,16 @@ charades_train_label_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/Charades/tr
 max_frame_charade_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/Charades/charades_max_frame_ids.json"
 max_frame_star_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/max_frame_ag.json"
 
-det_act_path = "../../exp/test_graph/kf_act_pred_result.json"
+det_act_path = "../../exp/test_graph/kf_act_pred_result_train_3_32_10.json"
 det_act = json.load(open(det_act_path))
 STAR_Charades_vid_mapping_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Charades_to_STAR_mapping.json"
 STAR_Charades_vid_mapping = json.load(open(STAR_Charades_vid_mapping_path))
-STAR_qid_vid_mapping_path = "../../exp/test_graph/STAR_qid_vid_mapping.json"
-STAR_qid_vid_mapping = json.load(open(STAR_qid_vid_mapping_path))
+STAR_test_qid_vid_mapping_path = "../../exp/test_graph/STAR_test_qid_vid_mapping.json"
+STAR_test_qid_vid_mapping = json.load(open(STAR_test_qid_vid_mapping_path))
+STAR_train_qid_vid_mapping_path = "../../exp/test_graph/STAR_train_qid_vid_mapping.json"
+STAR_train_qid_vid_mapping = json.load(open(STAR_train_qid_vid_mapping_path))
+STAR_val_qid_vid_mapping_path = "../../exp/test_graph/STAR_val_qid_vid_mapping.json"
+STAR_val_qid_vid_mapping = json.load(open(STAR_val_qid_vid_mapping_path))
 kf_mapping_path = "/gpfs/u/home/NSVR/NSVRbowu/scratch/data/STAR/Situation_Video_Data/STAR_test_to_Charades_KF.json"
 kf_Charades2STAR = json.load(open(kf_mapping_path))
 #embed()
@@ -78,7 +82,7 @@ if det_act_convert:
         #frame_sum_acc = sum(frame_level_acc) / len(frame_level_acc)
         #print("frame-level acc: " + str(frame_sum_acc))
     #embed()
-    with open('../../exp/test_graph/STAR_test_temporal_act.json', 'w') as f:
+    with open('../../exp/test_graph/STAR_train_temporal_act.json', 'w') as f:
         f.write(json.dumps(pred_result))
 
 keyframe_mapping = False
