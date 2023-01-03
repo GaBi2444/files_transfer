@@ -43,47 +43,50 @@ STAR_val = json.load(open(STAR_val_gt_path))
 
 det_act_convert = True
 pred_result = {}
+STAR_qid_vid_mappings = [STAR_train_qid_vid_mapping, STAR_test_qid_vid_mapping, STAR_val_qid_vid_mapping]
+mapping_mode = ['train', 'test', 'val']
 if det_act_convert:
-    for qid in STAR_qid_vid_mapping:
-        vid = STAR_qid_vid_mapping[qid]
-        vid_raw, _, _ = vid.split('_')
+    for i,STAR_qid_vid_mapping in enumerate(STAR_qid_vid_mappings):
+        for qid in STAR_qid_vid_mapping:
+            vid = STAR_qid_vid_mapping[qid]
+            vid_raw, _, _ = vid.split('_')
 
-        STAR_vid = STAR_Charades_vid_mapping['vid_mapping']['Charades_to_STAR'][vid]
-        fid_info = {}
-        for fid in det_act[vid]:
-            
-            STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
-            fid_info[STAR_fid] = det_act[vid][fid]
-        pred_result[qid] = fid_info
-    #embed()
-    compute_init_graph_act = True
-    if compute_init_graph_act:
-        frame_level_acc = []
-        for video in STAR_test:
-            situations = video['situations']
-            vid = video['video_id']
-            qid = video['question_id']
-            if qid not in pred_result: 
-                print(qid)
-                continue
-            for fid in situations:
-                total_act_nums_frame = 0
-                correct_act_nums_frame = 0
-                frame_acts_gt = situations[fid]['actions']
-                frame_acts_gt = [int(x[1:]) for x in frame_acts_gt]
-                gt_act_num = len(frame_acts_gt)
-                if fid not in pred_result[qid]: continue
-                det_acts = pred_result[qid][fid]
-                total_act_nums_frame += gt_act_num
-                for act in det_acts:
-                    if act in frame_acts_gt: 
-                        correct_act_nums_frame += 1
-                #frame_level_acc.append(correct_act_nums_frame / total_act_nums_frame)
-        #frame_sum_acc = sum(frame_level_acc) / len(frame_level_acc)
-        #print("frame-level acc: " + str(frame_sum_acc))
-    #embed()
-    with open('../../exp/test_graph/STAR_train_temporal_act.json', 'w') as f:
-        f.write(json.dumps(pred_result))
+            STAR_vid = STAR_Charades_vid_mapping['vid_mapping']['Charades_to_STAR'][vid]
+            fid_info = {}
+            for fid in det_act[vid]:
+
+                STAR_fid = kf_Charades2STAR[vid_raw]['Charades_To_STAR'][fid]
+                fid_info[STAR_fid] = det_act[vid][fid]
+            pred_result[qid] = fid_info
+        #embed()
+        compute_init_graph_act = True
+        if compute_init_graph_act:
+            frame_level_acc = []
+            for video in STAR_test:
+                situations = video['situations']
+                vid = video['video_id']
+                qid = video['question_id']
+                if qid not in pred_result:
+                    print(qid)
+                    continue
+                for fid in situations:
+                    total_act_nums_frame = 0
+                    correct_act_nums_frame = 0
+                    frame_acts_gt = situations[fid]['actions']
+                    frame_acts_gt = [int(x[1:]) for x in frame_acts_gt]
+                    gt_act_num = len(frame_acts_gt)
+                    if fid not in pred_result[qid]: continue
+                    det_acts = pred_result[qid][fid]
+                    total_act_nums_frame += gt_act_num
+                    for act in det_acts:
+                        if act in frame_acts_gt:
+                            correct_act_nums_frame += 1
+                    #frame_level_acc.append(correct_act_nums_frame / total_act_nums_frame)
+            #frame_sum_acc = sum(frame_level_acc) / len(frame_level_acc)
+            #print("frame-level acc: " + str(frame_sum_acc))
+        #embed()
+        with open('../../exp/test_graph/STAR_' + mapping_mode[i] + '_temporal_act.json', 'w') as f:
+            f.write(json.dumps(pred_result))
 
 keyframe_mapping = False
 kf_mapping = {}
