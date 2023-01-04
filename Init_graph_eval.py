@@ -5,7 +5,43 @@ mode = ['Feasibility', 'Interaction', 'Sequence', 'Prediction']
 gt = []
 det_act_path = "/home/bowu/data/STAR_feature/ActRecog/MViTv2/STAR_test_temporal_act.json"
 det_act = json.load(open(det_act_path))
-#embed() 
+#embed()
+acc_split = True
+if acc_split:
+    all_acc = []
+    for j in range(len(mode)):
+        type_acc = []
+        gt = json.load(open("/home/bowu/data/STAR/Question_Answer_SituationGraph/GT/" + mode[j] + "_test.json",'rb'))
+        gt_query = {}
+        for q_gt in gt:
+            qid = q_gt['question_id']
+            frames_act = {}
+            for fid in q_gt['situations']:
+                actions = q_gt['situations'][fid]['actions']
+                frames_act[fid] = actions
+            gt_query[qid] = frames_act
+        #embed()
+        not_match = 0
+        for i,qid in enumerate(det_act):
+            if qid not in gt_query:
+                continue
+            for fid in det_act[qid]:
+                correct_num = 0
+                if fid not in gt_query[qid]: continue
+                gt_acts = gt_query[qid][fid]
+                gt_acts_num = len(gt_acts)
+                if gt_acts_num == 0: continue
+                det_acts = []
+                acts_label = det_act[qid][fid]['pred_actions'][:2]
+                for label in acts_label:
+                    det_acts.append('a' + str(label).zfill(3))
+                for act in det_acts:
+                    if act in gt_acts:
+                        correct_num += 1
+                type_acc.append(correct_num / gt_acts_num)
+        qid_acc = sum(type_acc) / len(type_acc)
+        print('act acc ' + mode[j] + ' : ' + str(qid_acc))
+
 convert = False
 if convert:
     for j in range(len(mode)):
