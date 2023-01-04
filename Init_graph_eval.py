@@ -50,6 +50,7 @@ if convert:
             with open("../exp/InitGraph_w_act/" + mode[j] + "_GT_Sem/star_" + mode[j] + "_action_transition_model.json",'w') as f:
                 json.dump(Init_graph, f)
 acc = True
+STAR_test_distribution = {}
 if acc == True:
     for j in range(len(mode)):
         root_path = "/home/bowu/data/STAR/Question_Answer_SituationGraph/Swin_STTrans_10Epoch/SGDet/"
@@ -98,6 +99,10 @@ if acc == True:
                 gt_obj_num = len(gt_obj)
                 if gt_obj_num == 0: zero_obj = True
                 gt_act_num = len(gt_act)
+                if gt_act_num not in STAR_test_distribution:
+                    STAR_test_distribution[gt_act_num] = 1
+                else:
+                    STAR_test_distribution[gt_act_num] += 1
                 if gt_act_num == 0: zero_act = True
                 init_rel = situations[fid]['rel_labels'][:gt_rel_num]
                 init_obj = situations[fid]['bbox_labels'][:gt_obj_num]
@@ -120,6 +125,7 @@ if acc == True:
         rel_accuracy = sum(rel_acc) /len(rel_acc)
         obj_accuracy = sum(obj_acc) /len(obj_acc)
         act_accuracy = sum(act_acc) /len(act_acc)
+        print(mode[j] + " distribution: " + str(STAR_test_distribution))
         print(mode[j] + " can't find qid num: " + str(not_match))
         print(mode[j] + " Init Graph rel accuracy: " + str(rel_accuracy))
         print(mode[j] + " Init Graph obj accuracy: " + str(obj_accuracy))
