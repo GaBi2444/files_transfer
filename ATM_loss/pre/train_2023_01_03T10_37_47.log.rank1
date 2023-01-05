@@ -1,0 +1,26 @@
+2023-01-03T10:37:47 | INFO | mmf : Logging to: ../exp/checkpoints_10Epoch_w_act_exp/Prediction_GT_Sem/logs/train_2023_01_03T10_37_47.log.rank1
+2023-01-03T10:37:47 | INFO | mmf_cli.run : Namespace(config_override=None, local_rank=None, opts=['config=projects/nssr/atm/defaults.yaml', 'datasets=star_nssr', 'model=action_transition_model', 'run_type=train', 'dataset_config.star_nssr.qtype=Prediction', 'training.evaluation_interval=500', 'training.batch_size=64', 'training.max_epochs=80', 'training.checkpoint_interval=500', 'env.save_dir=../exp/checkpoints_10Epoch_w_act_exp/Prediction_GT_Sem', 'dataset_config.star_nssr.train_graph=GT', 'dataset_config.star_nssr.val_graph=Swin_STTrans_10Epoch', 'dataset_config.star_nssr.symbolic=False', 'dataset_config.star_nssr.semantic=True', 'dataset_config.star_nssr.visual=False', 'dataset_config.star_nssr.graph_type=SGDet'])
+2023-01-03T10:37:47 | INFO | mmf_cli.run : Torch version: 1.6.0a0+445c276
+2023-01-03T10:37:47 | INFO | mmf.utils.general : CUDA Device 1 is: Tesla V100-SXM2-32GB
+2023-01-03T10:37:47 | INFO | mmf_cli.run : Using seed 50120632
+2023-01-03T10:37:47 | INFO | mmf.trainers.mmf_trainer : Loading datasets
+2023-01-03T10:37:53 | INFO | mmf.trainers.mmf_trainer : Loading model
+2023-01-03T10:37:54 | INFO | mmf.trainers.mmf_trainer : Loading optimizer
+2023-01-03T10:37:54 | INFO | mmf.trainers.mmf_trainer : Loading metrics
+2023-01-03T10:37:54 | INFO | mmf.trainers.mmf_trainer : ===== Model =====
+2023-01-03T10:37:54 | INFO | mmf.trainers.core.training_loop : Starting training...
+2023-01-03T10:37:55 | INFO | torchtext.vocab : Loading vectors from /home/bowu/.cache/torch/mmf/glove.6B.300d.txt.pt
+2023-01-03T10:38:03 | WARNING | py.warnings : /nobackup/users/bowu/anaconda3/envs/mmf/lib/python3.6/site-packages/transformers/optimization.py:146: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /home/florin/anaconda3/conda-bld/pytorch-base_1604496080370/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+
+2023-01-03T10:38:03 | WARNING | py.warnings : /nobackup/users/bowu/anaconda3/envs/mmf/lib/python3.6/site-packages/transformers/optimization.py:146: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /home/florin/anaconda3/conda-bld/pytorch-base_1604496080370/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+
+2023-01-03T11:31:57 | INFO | mmf.trainers.callbacks.checkpoint : Checkpoint time. Saving a checkpoint.
+2023-01-03T11:31:57 | INFO | mmf.trainers.core.training_loop : Evaluation time. Running on full validation set...
