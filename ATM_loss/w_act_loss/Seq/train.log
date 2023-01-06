@@ -1,0 +1,135 @@
+2023-01-03T10:33:21 | INFO | mmf : Logging to: ../exp/checkpoints_10Epoch_w_act_exp/Sequence_GT_Sem/train.log
+2023-01-03T10:33:21 | INFO | mmf_cli.run : Namespace(config_override=None, local_rank=None, opts=['config=projects/nssr/atm/defaults.yaml', 'datasets=star_nssr', 'model=action_transition_model', 'run_type=train', 'dataset_config.star_nssr.qtype=Sequence', 'training.evaluation_interval=500', 'training.batch_size=256', 'training.max_epochs=40', 'training.checkpoint_interval=500', 'env.save_dir=../exp/checkpoints_10Epoch_w_act_exp/Sequence_GT_Sem', 'dataset_config.star_nssr.train_graph=GT', 'dataset_config.star_nssr.val_graph=Swin_STTrans_10Epoch', 'dataset_config.star_nssr.symbolic=False', 'dataset_config.star_nssr.semantic=True', 'dataset_config.star_nssr.visual=False', 'dataset_config.star_nssr.graph_type=SGDet'])
+2023-01-03T10:33:21 | INFO | mmf_cli.run : Torch version: 1.6.0a0+445c276
+2023-01-03T10:33:21 | INFO | mmf.utils.general : CUDA Device 0 is: Tesla V100-SXM2-32GB
+2023-01-03T10:33:21 | INFO | mmf_cli.run : Using seed 24521246
+2023-01-03T10:33:21 | INFO | mmf.trainers.mmf_trainer : Loading datasets
+2023-01-03T10:33:34 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No 'max_length' parameter in Processor's configuration. Setting to 50.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:34 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No 'max_length' parameter in Processor's configuration. Setting to 50.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:39 | INFO | mmf.trainers.mmf_trainer : Loading model
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No losses are defined in model configuration. You are expected to return loss in your return dict from forward.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No losses are defined in model configuration. You are expected to return loss in your return dict from forward.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | INFO | mmf.trainers.mmf_trainer : Loading optimizer
+2023-01-03T10:33:40 | INFO | mmf.trainers.mmf_trainer : Loading metrics
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No type for scheduler specified even though lr_scheduler is True, setting default to 'Pythia'
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No type for scheduler specified even though lr_scheduler is True, setting default to 'Pythia'
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: scheduler attributes has no params defined, defaulting to {}.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: scheduler attributes has no params defined, defaulting to {}.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | INFO | mmf.trainers.mmf_trainer : ===== Model =====
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: Both max_updates and max_epochs are specified. Favoring max_epochs: 40
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: Both max_updates and max_epochs are specified. Favoring max_epochs: 40
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:33:40 | INFO | mmf.trainers.core.training_loop : Starting training...
+2023-01-03T10:33:41 | INFO | torchtext.vocab : Loading vectors from /home/bowu/.cache/torch/mmf/glove.6B.300d.txt.pt
+2023-01-03T10:33:41 | INFO | torchtext.vocab : Loading vectors from /home/bowu/.cache/torch/mmf/glove.6B.300d.txt.pt
+2023-01-03T10:34:13 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: 'losses' already present in model output. No calculation will be done in base model.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:34:13 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: 'losses' already present in model output. No calculation will be done in base model.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:34:14 | WARNING | py.warnings : /nobackup/users/bowu/anaconda3/envs/mmf/lib/python3.6/site-packages/transformers/optimization.py:146: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /home/florin/anaconda3/conda-bld/pytorch-base_1604496080370/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+
+2023-01-03T10:34:14 | WARNING | py.warnings : /nobackup/users/bowu/anaconda3/envs/mmf/lib/python3.6/site-packages/transformers/optimization.py:146: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /home/florin/anaconda3/conda-bld/pytorch-base_1604496080370/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+
+2023-01-03T10:36:30 | INFO | mmf : Logging to: ../exp/checkpoints_10Epoch_w_act_exp/Sequence_GT_Sem/train.log
+2023-01-03T10:36:30 | INFO | mmf_cli.run : Namespace(config_override=None, local_rank=None, opts=['config=projects/nssr/atm/defaults.yaml', 'datasets=star_nssr', 'model=action_transition_model', 'run_type=train', 'dataset_config.star_nssr.qtype=Sequence', 'training.evaluation_interval=500', 'training.batch_size=256', 'training.max_epochs=40', 'training.checkpoint_interval=500', 'env.save_dir=../exp/checkpoints_10Epoch_w_act_exp/Sequence_GT_Sem', 'dataset_config.star_nssr.train_graph=GT', 'dataset_config.star_nssr.val_graph=Swin_STTrans_10Epoch', 'dataset_config.star_nssr.symbolic=False', 'dataset_config.star_nssr.semantic=True', 'dataset_config.star_nssr.visual=False', 'dataset_config.star_nssr.graph_type=SGDet'])
+2023-01-03T10:36:30 | INFO | mmf_cli.run : Torch version: 1.6.0a0+445c276
+2023-01-03T10:36:30 | INFO | mmf.utils.general : CUDA Device 0 is: Tesla V100-SXM2-32GB
+2023-01-03T10:36:30 | INFO | mmf_cli.run : Using seed 33557340
+2023-01-03T10:36:30 | INFO | mmf.trainers.mmf_trainer : Loading datasets
+2023-01-03T10:36:44 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No 'max_length' parameter in Processor's configuration. Setting to 50.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:44 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No 'max_length' parameter in Processor's configuration. Setting to 50.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:48 | INFO | mmf.trainers.mmf_trainer : Loading model
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No losses are defined in model configuration. You are expected to return loss in your return dict from forward.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No losses are defined in model configuration. You are expected to return loss in your return dict from forward.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | INFO | mmf.trainers.mmf_trainer : Loading optimizer
+2023-01-03T10:36:49 | INFO | mmf.trainers.mmf_trainer : Loading metrics
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No type for scheduler specified even though lr_scheduler is True, setting default to 'Pythia'
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: No type for scheduler specified even though lr_scheduler is True, setting default to 'Pythia'
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: scheduler attributes has no params defined, defaulting to {}.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: scheduler attributes has no params defined, defaulting to {}.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | INFO | mmf.trainers.mmf_trainer : ===== Model =====
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: Both max_updates and max_epochs are specified. Favoring max_epochs: 40
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: Both max_updates and max_epochs are specified. Favoring max_epochs: 40
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:36:49 | INFO | mmf.trainers.core.training_loop : Starting training...
+2023-01-03T10:36:50 | INFO | torchtext.vocab : Loading vectors from /home/bowu/.cache/torch/mmf/glove.6B.300d.txt.pt
+2023-01-03T10:36:50 | INFO | torchtext.vocab : Loading vectors from /home/bowu/.cache/torch/mmf/glove.6B.300d.txt.pt
+2023-01-03T10:37:21 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: 'losses' already present in model output. No calculation will be done in base model.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:37:21 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: 'losses' already present in model output. No calculation will be done in base model.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T10:37:21 | WARNING | py.warnings : /nobackup/users/bowu/anaconda3/envs/mmf/lib/python3.6/site-packages/transformers/optimization.py:146: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /home/florin/anaconda3/conda-bld/pytorch-base_1604496080370/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+
+2023-01-03T10:37:21 | WARNING | py.warnings : /nobackup/users/bowu/anaconda3/envs/mmf/lib/python3.6/site-packages/transformers/optimization.py:146: UserWarning: This overload of add_ is deprecated:
+	add_(Number alpha, Tensor other)
+Consider using one of the following signatures instead:
+	add_(Tensor other, *, Number alpha) (Triggered internally at  /home/florin/anaconda3/conda-bld/pytorch-base_1604496080370/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  exp_avg.mul_(beta1).add_(1.0 - beta1, grad)
+
+2023-01-03T11:20:09 | INFO | mmf.trainers.callbacks.logistics : progress: 100/13920, star/train/masked_act_loss: 0.0000, star/train/masked_act_loss/avg: 0.0000, star/train/masked_obj1_loss: 0.0000, star/train/masked_obj1_loss/avg: 0.0000, star/train/masked_obj2_loss: 0.0000, star/train/masked_obj2_loss/avg: 0.0000, star/train/masked_rel_loss: 2.8655, star/train/masked_rel_loss/avg: 2.8655, train/total_loss: 2.8655, train/total_loss/avg: 2.8655, max mem: 8465.0, experiment: action_transition_model, epoch: 2, num_updates: 100, iterations: 100, max_updates: 13920, lr: 0.00002, ups: 0.04, time: 43m 19s 633ms, time_since_start: 43m 19s 717ms, eta: 99h 47m 49s 392ms
+2023-01-03T12:04:26 | INFO | mmf.trainers.callbacks.logistics : progress: 200/13920, star/train/masked_act_loss: 0.0000, star/train/masked_act_loss/avg: 0.0000, star/train/masked_obj1_loss: 0.0000, star/train/masked_obj1_loss/avg: 0.0000, star/train/masked_obj2_loss: 0.0000, star/train/masked_obj2_loss/avg: 0.0000, star/train/masked_rel_loss: 2.3745, star/train/masked_rel_loss/avg: 2.6200, train/total_loss: 2.3745, train/total_loss/avg: 2.6200, max mem: 8465.0, experiment: action_transition_model, epoch: 3, num_updates: 200, iterations: 200, max_updates: 13920, lr: 0.00003, ups: 0.04, time: 44m 16s 786ms, time_since_start: 01h 27m 36s 503ms, eta: 101h 15m 11s 074ms
+2023-01-03T12:50:45 | INFO | mmf.trainers.callbacks.logistics : progress: 300/13920, star/train/masked_act_loss: 0.0000, star/train/masked_act_loss/avg: 0.0000, star/train/masked_obj1_loss: 0.0000, star/train/masked_obj1_loss/avg: 0.0000, star/train/masked_obj2_loss: 0.0000, star/train/masked_obj2_loss/avg: 0.0000, star/train/masked_rel_loss: 2.3745, star/train/masked_rel_loss/avg: 2.4073, train/total_loss: 2.3745, train/total_loss/avg: 2.4073, max mem: 8465.0, experiment: action_transition_model, epoch: 4, num_updates: 300, iterations: 300, max_updates: 13920, lr: 0.00004, ups: 0.04, time: 46m 19s 396ms, time_since_start: 02h 13m 55s 900ms, eta: 105h 09m 13s 874ms
+2023-01-03T13:37:35 | INFO | mmf.trainers.callbacks.logistics : progress: 400/13920, star/train/masked_act_loss: 0.0000, star/train/masked_act_loss/avg: 0.0000, star/train/masked_obj1_loss: 0.0000, star/train/masked_obj1_loss/avg: 0.0000, star/train/masked_obj2_loss: 0.0000, star/train/masked_obj2_loss/avg: 0.0000, star/train/masked_rel_loss: 1.9818, star/train/masked_rel_loss/avg: 2.2397, train/total_loss: 1.9818, train/total_loss/avg: 2.2397, max mem: 8465.0, experiment: action_transition_model, epoch: 5, num_updates: 400, iterations: 400, max_updates: 13920, lr: 0.00005, ups: 0.04, time: 46m 49s 795ms, time_since_start: 03h 45s 695ms, eta: 105h 31m 24s 309ms
+2023-01-03T14:25:01 | INFO | mmf.trainers.callbacks.checkpoint : Checkpoint time. Saving a checkpoint.
+2023-01-03T14:25:01 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: Please also save or load the state of the optimzer when saving or loading the scheduler.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T14:25:01 | WARNING | py.warnings : /nobackup/users/bowu/code/STAR_code/STAR_Reasoning/NS-SR/mmf/mmf/utils/distributed.py:272: UserWarning: Please also save or load the state of the optimzer when saving or loading the scheduler.
+  builtin_warn(*args, **kwargs)
+
+2023-01-03T14:25:01 | INFO | mmf.trainers.callbacks.logistics : progress: 500/13920, star/train/masked_act_loss: 0.0000, star/train/masked_act_loss/avg: 0.0000, star/train/masked_obj1_loss: 0.0000, star/train/masked_obj1_loss/avg: 0.0000, star/train/masked_obj2_loss: 0.0000, star/train/masked_obj2_loss/avg: 0.0000, star/train/masked_rel_loss: 1.9818, star/train/masked_rel_loss/avg: 2.1355, train/total_loss: 1.9818, train/total_loss/avg: 2.1355, max mem: 8465.0, experiment: action_transition_model, epoch: 6, num_updates: 500, iterations: 500, max_updates: 13920, lr: 0.00006, ups: 0.04, time: 47m 26s 447ms, time_since_start: 03h 48m 12s 143ms, eta: 106h 06m 33s 262ms
+2023-01-03T14:25:01 | INFO | mmf.trainers.core.training_loop : Evaluation time. Running on full validation set...
